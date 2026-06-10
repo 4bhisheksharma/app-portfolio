@@ -1,17 +1,15 @@
-import { AppsSection } from './components/apps/AppsSection'
-import { PageShell } from './components/layout/PageShell'
-import { SiteFooter } from './components/layout/SiteFooter'
-import { SiteHeader } from './components/layout/SiteHeader'
-import { apps } from './data/apps'
-import { siteConfig } from './data/site'
+import { Route, Routes } from 'react-router-dom'
+import { HomePage } from './pages/HomePage'
+import { PulseAccountDeletionPage } from './pages/PulseAccountDeletionPage'
+import { PulsePrivacyPage } from './pages/PulsePrivacyPage'
 
 function App() {
   return (
-    <PageShell portfolioUrl={siteConfig.portfolioUrl}>
-      <SiteHeader config={siteConfig} />
-      <AppsSection apps={apps} />
-      <SiteFooter config={siteConfig} />
-    </PageShell>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/pulse/privacy" element={<PulsePrivacyPage />} />
+      <Route path="/pulse/account-deletion" element={<PulseAccountDeletionPage />} />
+    </Routes>
   )
 }
 

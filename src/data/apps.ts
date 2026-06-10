@@ -38,15 +38,15 @@ export const apps: App[] = [
     status: 'coming_soon',
   },
   {
-    id: 'more-to-come',
+    id: 'pulse',
     number: '04',
-    tag: 'MORE',
-    category: 'More to Come',
-    name: 'More to Come',
+    tag: 'CAPSULE',
+    category: 'Voice Time Capsule',
+    name: 'P.U.L.S.E',
     description:
-      'More to come...',
+      'A local-first, accountless voice time-capsule app. Record messages, lock them until a future date, and listen when they unlock.',
     accent: 'rose',
-    icon: 'wallet',
-    status: 'coming_soon',
+    icon: 'pulse',
+    status: 'live',
   },
 ]

@@ -75,6 +75,34 @@ export function AppIcon({ icon, className = '' }: AppIconProps) {
         />
       </>
     ),
+    pulse: (
+      <>
+        <path
+          d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+        <path
+          d="M19 10v2a7 7 0 0 1-14 0v-2"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+        <path
+          d="M12 19v3M8 22h8"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </>
+    ),
   }
 
   return (
