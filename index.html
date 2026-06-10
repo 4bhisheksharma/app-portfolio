@@ -15,10 +15,19 @@
       rel="stylesheet"
     />
     <title>Abhishek Sharma - Apps</title>
-    <script type="module" crossorigin src="/assets/index-CCwbDQv9.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-D3cpEZT7.css">
+    <script type="module" crossorigin src="/assets/index-BAEg8LML.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Dle8URL5.css">
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      ;(function () {
+        var redirect = sessionStorage.getItem('spa-redirect')
+        if (redirect) {
+          sessionStorage.removeItem('spa-redirect')
+          history.replaceState(null, '', redirect)
+        }
+      })()
+    </script>
   </body>
 </html>
