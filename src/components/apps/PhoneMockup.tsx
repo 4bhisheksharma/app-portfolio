@@ -10,7 +10,7 @@ export function PhoneMockup({ app }: PhoneMockupProps) {
 
   if (app.screenshot) {
     return (
-      <div className="mt-6 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900">
+      <div className="mt-6 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950">
         <img
           src={app.screenshot}
           alt={`${app.name} screenshot`}
@@ -22,18 +22,22 @@ export function PhoneMockup({ app }: PhoneMockupProps) {
 
   return (
     <div
-      className={`relative mt-6 overflow-hidden rounded-2xl border border-zinc-800 bg-gradient-to-b ${accent.gradient}`}
+      className={`relative mt-6 overflow-hidden rounded-2xl border border-zinc-800/80 bg-zinc-950 bg-gradient-to-b ${accent.gradient}`}
     >
       <div className="flex aspect-[9/16] flex-col items-center justify-center gap-3 p-6">
-        <div className="h-16 w-16 rounded-2xl border border-zinc-700/50 bg-zinc-800/50" />
-        <div className="h-2 w-24 rounded-full bg-zinc-700/50" />
-        <div className="h-2 w-32 rounded-full bg-zinc-700/30" />
-        <div className="mt-4 h-2 w-20 rounded-full bg-zinc-700/20" />
-        <span className="mt-6 rounded-full border border-zinc-700/50 bg-zinc-900/60 px-3 py-1 text-xs tracking-widest text-zinc-500">
+        <div
+          className={`flex h-14 w-14 items-center justify-center rounded-2xl border ${accent.border} ${accent.bg}`}
+        >
+          <div className="h-6 w-6 rounded-md bg-zinc-700/50" />
+        </div>
+        <div className="h-2 w-24 rounded-full bg-zinc-800/80" />
+        <div className="h-2 w-32 rounded-full bg-zinc-800/50" />
+        <div className="mt-2 h-2 w-20 rounded-full bg-zinc-800/30" />
+        <span className="mt-8 rounded-full border border-zinc-700/60 bg-zinc-900/80 px-4 py-1.5 text-[10px] font-medium tracking-[0.2em] text-zinc-500">
           COMING SOON
         </span>
       </div>
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-zinc-950/80 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-zinc-950 to-transparent" />
     </div>
   )
 }

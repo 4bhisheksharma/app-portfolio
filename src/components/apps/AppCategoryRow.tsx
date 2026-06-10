@@ -9,9 +9,10 @@ export function AppCategoryRow({ app }: AppCategoryRowProps) {
   const accent = accentStyles[app.accent]
 
   return (
-    <div className="mt-4 flex items-center justify-between text-xs tracking-wider">
-      <span className={`font-medium ${accent.text}`}>{app.tag}</span>
-      <span className="text-zinc-600">{app.category}</span>
-    </div>
+    <p className={`mt-4 text-xs font-medium tracking-wider ${accent.text}`}>
+      {app.tag}
+      <span className="mx-1.5 text-zinc-600">·</span>
+      <span className="text-zinc-500">{app.category}</span>
+    </p>
   )
 }
