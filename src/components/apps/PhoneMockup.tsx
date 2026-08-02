@@ -22,7 +22,7 @@ export function PhoneMockup({ app }: PhoneMockupProps) {
 
   return (
     <div
-      className={`relative mt-6 overflow-hidden rounded-2xl border border-zinc-800/80 bg-zinc-950 bg-gradient-to-b ${accent.gradient}`}
+      className={`relative mt-6 overflow-hidden rounded-2xl border border-zinc-800/80 bg-zinc-950 ${accent.bg}`}
     >
       <div className="flex aspect-[9/16] flex-col items-center justify-center gap-3 p-6">
         <div

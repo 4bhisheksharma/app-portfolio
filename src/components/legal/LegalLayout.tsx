@@ -17,7 +17,6 @@ export function LegalLayout({
 }: LegalLayoutProps) {
   return (
     <div className="relative min-h-screen bg-zinc-950 text-zinc-300">
-      <div className="grain pointer-events-none fixed inset-0 z-0" aria-hidden="true" />
       <div className="relative z-10 mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
         <Link
           to="/"
@@ -36,7 +35,7 @@ export function LegalLayout({
         </Link>
 
         <header className="mb-10 border-b border-zinc-800 pb-8">
-          <p className="font-mono text-xs tracking-widest text-zinc-500">// P.U.L.S.E</p>
+          <p className="text-xs font-medium uppercase tracking-widest text-zinc-600">P.U.L.S.E</p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             {title}
           </h1>

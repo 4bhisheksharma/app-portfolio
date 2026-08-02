@@ -5,12 +5,12 @@ interface ScrollControlsProps {
 
 export function ScrollControls({ onScrollLeft, onScrollRight }: ScrollControlsProps) {
   return (
-    <div className="mb-6 flex justify-center gap-2 lg:hidden">
+    <div className="mb-5 flex justify-center gap-2 lg:hidden">
       <button
         type="button"
         onClick={onScrollLeft}
         aria-label="Scroll apps left"
-        className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 transition-colors hover:border-zinc-700 hover:text-white"
+        className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 text-zinc-500 transition-colors hover:border-zinc-700 hover:text-white"
       >
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           <path
@@ -26,7 +26,7 @@ export function ScrollControls({ onScrollLeft, onScrollRight }: ScrollControlsPr
         type="button"
         onClick={onScrollRight}
         aria-label="Scroll apps right"
-        className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 transition-colors hover:border-zinc-700 hover:text-white"
+        className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 text-zinc-500 transition-colors hover:border-zinc-700 hover:text-white"
       >
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           <path

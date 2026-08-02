@@ -2,9 +2,57 @@ import type { App } from '../types/app'
 
 export const apps: App[] = [
   {
-    id: 'hisab-khata',
+    id: 'invisible-vpn',
     number: '01',
-    tag: 'FINANCE',
+    tag: 'Privacy',
+    category: 'VPN',
+    name: 'Invisible VPN',
+    description:
+      'Secure way to surf online. One-tap WireGuard VPN, server health indicators, speed tests, and privacy-first browsing on mobile and Chrome.',
+    accent: 'violet',
+    icon: 'shield',
+    status: 'live',
+    iconImage: '/apps/invisible-vpn.png',
+    playStoreUrl:
+      'https://play.google.com/store/apps/details?id=com.digitalpathshala.invisiblevpn',
+    chromeStoreUrl:
+      'https://chromewebstore.google.com/detail/invisible-vpn-secure-way/iifoamnnpnmiknnknoanmeghomfencjg',
+    iosComingSoon: true,
+  },
+  {
+    id: 'pulse',
+    number: '02',
+    tag: 'Voice',
+    category: 'Time Capsule',
+    name: 'P.U.L.S.E',
+    description:
+      'A local-first voice time-capsule app. Record messages, lock them until a future date, and listen when they unlock.',
+    accent: 'rose',
+    icon: 'pulse',
+    status: 'closed_testing',
+    iconImage: '/apps/pulse.png',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.abhishek.app.pulse',
+    closedTesting: true,
+  },
+  {
+    id: 'urban-homes',
+    number: '03',
+    tag: 'Real Estate',
+    category: 'Property',
+    name: 'Urban Homes',
+    description:
+      'Elevate your standards. Browse and discover urban properties with a clean, practical experience built for everyday home seekers.',
+    accent: 'amber',
+    icon: 'home',
+    status: 'live',
+    iconImage: '/apps/urban-homes.png',
+    playStoreUrl:
+      'https://play.google.com/store/apps/details?id=com.digitalpathshala.urbanhomes',
+  },
+  {
+    id: 'hisab-khata',
+    number: '04',
+    tag: 'Finance',
     category: 'Business',
     name: 'Hisab Khata',
     description:
@@ -15,8 +63,8 @@ export const apps: App[] = [
   },
   {
     id: 'digital-khata',
-    number: '02',
-    tag: 'LEDGER',
+    number: '05',
+    tag: 'Ledger',
     category: 'Shop Management',
     name: 'Digital Khata',
     description:
@@ -24,29 +72,5 @@ export const apps: App[] = [
     accent: 'orange',
     icon: 'ledger',
     status: 'coming_soon',
-  },
-  {
-    id: 'invisible-vpn',
-    number: '03',
-    tag: 'SECURE',
-    category: 'Privacy',
-    name: 'Invisible VPN *',
-    description:
-      'Invisible VPN - a secure way to surf online with privacy-first connectivity and a clean mobile experience. *Client Project',
-    accent: 'violet',
-    icon: 'shield',
-    status: 'coming_soon',
-  },
-  {
-    id: 'pulse',
-    number: '04',
-    tag: 'CAPSULE',
-    category: 'Voice Time Capsule',
-    name: 'P.U.L.S.E',
-    description:
-      'A local-first, accountless voice time-capsule app. Record messages, lock them until a future date, and listen when they unlock.',
-    accent: 'rose',
-    icon: 'pulse',
-    status: 'live',
   },
 ]

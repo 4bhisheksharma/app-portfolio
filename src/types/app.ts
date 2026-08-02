@@ -1,8 +1,8 @@
-export type AppStatus = 'coming_soon' | 'live'
+export type AppStatus = 'coming_soon' | 'live' | 'closed_testing'
 
-export type AppAccent = 'orange' | 'emerald' | 'violet' | 'rose'
+export type AppAccent = 'orange' | 'emerald' | 'violet' | 'rose' | 'amber'
 
-export type AppIcon = 'finance' | 'ledger' | 'shield' | 'wallet' | 'pulse'
+export type AppIcon = 'finance' | 'ledger' | 'shield' | 'wallet' | 'pulse' | 'home'
 
 export interface App {
   id: string
@@ -14,9 +14,13 @@ export interface App {
   accent: AppAccent
   icon: AppIcon
   status: AppStatus
+  iconImage?: string
   screenshot?: string
   appStoreUrl?: string
   playStoreUrl?: string
+  chromeStoreUrl?: string
+  iosComingSoon?: boolean
+  closedTesting?: boolean
 }
 
 export interface NavLink {
@@ -32,4 +36,5 @@ export interface SiteConfig {
   appCount: number
   portfolioUrl: string
   navLinks: NavLink[]
+  testingContactEmail: string
 }

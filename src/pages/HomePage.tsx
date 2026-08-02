@@ -7,7 +7,7 @@ import { siteConfig } from '../data/site'
 
 export function HomePage() {
   return (
-    <PageShell portfolioUrl={siteConfig.portfolioUrl}>
+    <PageShell>
       <SiteHeader config={siteConfig} />
       <AppsSection apps={apps} />
       <SiteFooter config={siteConfig} />
