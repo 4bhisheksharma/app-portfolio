@@ -48,6 +48,7 @@ export const apps: App[] = [
     iconImage: '/apps/urban-homes.png',
     playStoreUrl:
       'https://play.google.com/store/apps/details?id=com.digitalpathshala.urbanhomes',
+    appStoreUrl: 'https://apps.apple.com/us/app/urban-homes-np/id6796251918',
   },
   {
     id: 'hisab-khata',
