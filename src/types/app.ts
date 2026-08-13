@@ -2,7 +2,7 @@ export type AppStatus = 'coming_soon' | 'live' | 'closed_testing'
 
 export type AppAccent = 'orange' | 'emerald' | 'violet' | 'rose' | 'amber'
 
-export type AppIcon = 'finance' | 'ledger' | 'shield' | 'wallet' | 'pulse' | 'home'
+export type AppIcon = 'finance' | 'ledger' | 'shield' | 'wallet' | 'pulse' | 'home' | 'compass'
 
 export interface App {
   id: string
@@ -19,6 +19,7 @@ export interface App {
   appStoreUrl?: string
   playStoreUrl?: string
   chromeStoreUrl?: string
+  websiteUrl?: string
   iosComingSoon?: boolean
   closedTesting?: boolean
 }

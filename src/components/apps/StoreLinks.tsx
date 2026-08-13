@@ -88,6 +88,10 @@ export function StoreLinks({ app }: StoreLinksProps) {
               </StoreBadge>
             )}
 
+            {app.websiteUrl && (
+              <StoreBadge href={app.websiteUrl}>Website</StoreBadge>
+            )}
+
             {app.chromeStoreUrl && (
               <StoreBadge href={app.chromeStoreUrl}>Chrome</StoreBadge>
             )}

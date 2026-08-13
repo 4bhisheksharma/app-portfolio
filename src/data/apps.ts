@@ -51,8 +51,24 @@ export const apps: App[] = [
     appStoreUrl: 'https://apps.apple.com/us/app/urban-homes-np/id6796251918',
   },
   {
-    id: 'hisab-khata',
+    id: 'sanskar-vastu-compass',
     number: '04',
+    tag: 'Vastu',
+    category: 'Compass',
+    name: 'Sanskar Vastu Compass',
+    description:
+      'A professional direction and planning companion for architects, Vastu consultants, students, and anyone who works with orientation, alignment, and site layout in real-world conditions.',
+    accent: 'rose',
+    icon: 'compass',
+    status: 'live',
+    iconImage: '/apps/sanskar-vastu-compass.png',
+    playStoreUrl:
+      'https://play.google.com/store/apps/details?id=com.bobthedeveloper.mobileApp',
+    websiteUrl: 'https://sanskaracademy.net/',
+  },
+  {
+    id: 'hisab-khata',
+    number: '05',
     tag: 'Finance',
     category: 'Business',
     name: 'Hisab Khata',
@@ -64,7 +80,7 @@ export const apps: App[] = [
   },
   {
     id: 'digital-khata',
-    number: '05',
+    number: '06',
     tag: 'Ledger',
     category: 'Shop Management',
     name: 'Digital Khata',
