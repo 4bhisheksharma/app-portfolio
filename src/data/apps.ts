@@ -48,7 +48,25 @@ export const apps: App[] = [
     iconImage: '/apps/urban-homes.png',
     playStoreUrl:
       'https://play.google.com/store/apps/details?id=com.digitalpathshala.urbanhomes',
-    appStoreUrl: 'https://apps.apple.com/us/app/urban-homes-np/id6796251918',
+      iosComingSoon: true,
+      websiteUrl: 'https://dhrmsfrontend-puyrr.ondigitalocean.app/',
+  },
+  {
+    id: 'dhrms',
+    number: '04',
+    tag: 'Health',
+    category: 'Healthcare',
+    name: 'DHRMS',
+    description:
+      'Digital Health Record Management System for Nepal',
+    accent: 'emerald',
+    icon: 'wallet',
+    status: 'live',
+    iconImage: '/apps/dhrms.png',
+    playStoreUrl:
+      'https://play.google.com/store/apps/details?id=com.dhrms.axile',
+    websiteUrl: 'https://dhrmsfrontend-puyrr.ondigitalocean.app/',
+    iosComingSoon: true,
   },
   {
     id: 'sanskar-vastu-compass',
