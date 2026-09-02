@@ -135,6 +135,18 @@ export function AppIcon({ icon, className = '' }: AppIconProps) {
         />
       </>
     ),
+    building: (
+      <>
+        <path
+          d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </>
+    ),
   }
 
   return (

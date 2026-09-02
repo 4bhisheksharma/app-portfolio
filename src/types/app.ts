@@ -2,7 +2,15 @@ export type AppStatus = 'coming_soon' | 'live' | 'closed_testing'
 
 export type AppAccent = 'orange' | 'emerald' | 'violet' | 'rose' | 'amber'
 
-export type AppIcon = 'finance' | 'ledger' | 'shield' | 'wallet' | 'pulse' | 'home' | 'compass'
+export type AppIcon =
+  | 'finance'
+  | 'ledger'
+  | 'shield'
+  | 'wallet'
+  | 'pulse'
+  | 'home'
+  | 'compass'
+  | 'building'
 
 export interface App {
   id: string

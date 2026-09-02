@@ -48,8 +48,9 @@ export const apps: App[] = [
     iconImage: '/apps/urban-homes.png',
     playStoreUrl:
       'https://play.google.com/store/apps/details?id=com.digitalpathshala.urbanhomes',
-      iosComingSoon: true,
-      websiteUrl: 'https://dhrmsfrontend-puyrr.ondigitalocean.app/',
+    iosComingSoon: false,
+    appStoreUrl: 'https://apps.apple.com/us/app/urban-homes-np/id6796251918',
+    websiteUrl: 'https://urbanhomes.com.np/',  
   },
   {
     id: 'dhrms',
@@ -69,8 +70,24 @@ export const apps: App[] = [
     iosComingSoon: true,
   },
   {
+    id: 'belbari-municipality',
+    number: '05',
+    tag: 'Gov',
+    category: 'Municipality',
+    name: 'Belbari Municipality',
+    description:
+      'Official digital mobile app for Belbari Municipality (Morang, Nepal) providing citizen services, public notices, grievance redressal, ward information, and an AI municipal assistant.',
+    accent: 'emerald',
+    icon: 'building',
+    status: 'live',
+    iconImage: '/apps/belbari-municipality.png',
+    playStoreUrl:
+      'https://play.google.com/store/apps/details?id=com.palika.palika_app',
+    websiteUrl: 'https://belbarimun.gov.np/',
+  },
+  {
     id: 'sanskar-vastu-compass',
-    number: '04',
+    number: '06',
     tag: 'Vastu',
     category: 'Compass',
     name: 'Sanskar Vastu Compass',
@@ -86,7 +103,7 @@ export const apps: App[] = [
   },
   {
     id: 'hisab-khata',
-    number: '05',
+    number: '07',
     tag: 'Finance',
     category: 'Business',
     name: 'Hisab Khata',
@@ -98,7 +115,7 @@ export const apps: App[] = [
   },
   {
     id: 'digital-khata',
-    number: '06',
+    number: '08',
     tag: 'Ledger',
     category: 'Shop Management',
     name: 'Digital Khata',

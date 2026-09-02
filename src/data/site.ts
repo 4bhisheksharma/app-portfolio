@@ -5,12 +5,12 @@ export const siteConfig: SiteConfig = {
   title: "Apps I've Built",
   subtitle: 'Mobile apps for Android and iOS — privacy, voice, and everyday tools.',
   sectionLabel: 'Portfolio',
-  appCount: 6,
+  appCount: 8,
   portfolioUrl: 'https://www.abhishek-sharma.com.np/',
   testingContactEmail: 'developer@abhishek-sharma.com.np',
   navLinks: [
     { label: 'Abhishek Sharma', href: 'https://www.abhishek-sharma.com.np/' },
-    { label: '6 Apps' },
+    { label: '8 Apps' },
     { label: 'Portfolio', href: 'https://www.abhishek-sharma.com.np/' },
   ],
 }
