@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
+import { GitMosaicPrivacyPage } from './pages/GitMosaicPrivacyPage'
 import { HomePage } from './pages/HomePage'
 import { PulseAccountDeletionPage } from './pages/PulseAccountDeletionPage'
 import { PulsePrivacyPage } from './pages/PulsePrivacyPage'
@@ -9,6 +10,7 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/pulse/privacy" element={<PulsePrivacyPage />} />
       <Route path="/pulse/account-deletion" element={<PulseAccountDeletionPage />} />
+      <Route path="/gitmosaic/privacy" element={<GitMosaicPrivacyPage />} />
     </Routes>
   )
 }

@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom'
 
 interface LegalLayoutProps {
+  appName?: string
   title: string
   subtitle?: string
-  effectiveDate: string
+  effectiveDate?: string
   lastUpdated: string
   children: React.ReactNode
 }
 
 export function LegalLayout({
+  appName = 'P.U.L.S.E',
   title,
   subtitle,
   effectiveDate,
@@ -35,13 +37,13 @@ export function LegalLayout({
         </Link>
 
         <header className="mb-10 border-b border-zinc-800 pb-8">
-          <p className="text-xs font-medium uppercase tracking-widest text-zinc-600">P.U.L.S.E</p>
+          <p className="text-xs font-medium uppercase tracking-widest text-zinc-600">{appName}</p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             {title}
           </h1>
           {subtitle && <p className="mt-2 text-sm text-zinc-500">{subtitle}</p>}
           <p className="mt-4 text-xs text-zinc-600">
-            Effective date: {effectiveDate} · Last updated: {lastUpdated}
+            {effectiveDate ? `Effective date: ${effectiveDate} · ` : ''}Last updated: {lastUpdated}
           </p>
         </header>
 
