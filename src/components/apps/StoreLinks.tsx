@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import type { App } from '../../types/app'
 import { ExternalLink } from '../ui/ExternalLink'
 import { PulseTestingModal } from './PulseTestingModal'
@@ -42,6 +43,17 @@ function StoreBadge({
   }
 
   if (href) {
+    if (href.startsWith('/')) {
+      return (
+        <Link
+          to={href}
+          className={`${base} border-zinc-700/60 bg-zinc-800/50 text-zinc-300 hover:border-zinc-600 hover:bg-zinc-800 hover:text-white`}
+        >
+          {children}
+        </Link>
+      )
+    }
+
     return (
       <ExternalLink
         href={href}
@@ -74,7 +86,12 @@ export function StoreLinks({ app }: StoreLinksProps) {
     <>
       <div className="mt-6 flex flex-wrap gap-2 border-t border-zinc-800/80 pt-5">
         {isComingSoon ? (
-          <StoreBadge disabled>Coming soon</StoreBadge>
+          <>
+            <StoreBadge disabled>Coming soon</StoreBadge>
+            {app.websiteUrl && <StoreBadge href={app.websiteUrl}>Website</StoreBadge>}
+            {app.githubUrl && <StoreBadge href={app.githubUrl}>GitHub</StoreBadge>}
+            {app.privacyUrl && <StoreBadge href={app.privacyUrl}>Privacy</StoreBadge>}
+          </>
         ) : (
           <>
             {app.playStoreUrl && (
@@ -96,6 +113,10 @@ export function StoreLinks({ app }: StoreLinksProps) {
               <StoreBadge href={app.chromeStoreUrl}>Chrome</StoreBadge>
             )}
 
+            {app.githubUrl && (
+              <StoreBadge href={app.githubUrl}>GitHub</StoreBadge>
+            )}
+
             {app.appStoreUrl ? (
               <StoreBadge href={app.appStoreUrl}>App Store</StoreBadge>
             ) : app.iosComingSoon ? (
@@ -104,6 +125,10 @@ export function StoreLinks({ app }: StoreLinksProps) {
                 <span className="text-zinc-600">· Soon</span>
               </StoreBadge>
             ) : null}
+
+            {app.privacyUrl && (
+              <StoreBadge href={app.privacyUrl}>Privacy</StoreBadge>
+            )}
 
             {isClosedTesting && (
               <StoreBadge onClick={() => setModalOpen(true)}>

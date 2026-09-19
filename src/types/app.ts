@@ -11,6 +11,8 @@ export type AppIcon =
   | 'home'
   | 'compass'
   | 'building'
+  | 'grid'
+  | 'game'
 
 export interface App {
   id: string
@@ -28,6 +30,8 @@ export interface App {
   playStoreUrl?: string
   chromeStoreUrl?: string
   websiteUrl?: string
+  githubUrl?: string
+  privacyUrl?: string
   iosComingSoon?: boolean
   closedTesting?: boolean
 }
