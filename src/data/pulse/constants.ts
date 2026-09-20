@@ -3,6 +3,7 @@ export const pulseMeta = {
   displayName: 'PULSE',
   fullName: 'Personal Unseen Locker for Special Experience',
   packageId: 'com.abhishek.app.pulse',
+  playStoreUrl: 'https://play.google.com/store/apps/details?id=com.abhishek.app.pulse',
   version: '1.0.0',
   developer: 'Abhishek Sharma',
   email: 'developer@abhishek-sharma.com.np',

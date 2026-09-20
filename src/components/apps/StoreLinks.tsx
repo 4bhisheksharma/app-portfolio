@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { App } from '../../types/app'
 import { ExternalLink } from '../ui/ExternalLink'
-import { PulseTestingModal } from './PulseTestingModal'
+import { ClosedTestingModal } from './ClosedTestingModal'
 
 interface StoreLinksProps {
   app: App
@@ -35,7 +35,7 @@ function StoreBadge({
       <button
         type="button"
         onClick={onClick}
-        className={`${base} border-zinc-700/60 bg-zinc-800/50 text-zinc-300 hover:border-zinc-600 hover:bg-zinc-800 hover:text-white`}
+        className={`${base} border-zinc-700/60 bg-zinc-800/50 text-zinc-300 hover:border-zinc-600 hover:bg-zinc-800 hover:text-white cursor-pointer`}
       >
         {children}
       </button>
@@ -72,16 +72,6 @@ export function StoreLinks({ app }: StoreLinksProps) {
   const isComingSoon = app.status === 'coming_soon'
   const isClosedTesting = app.closedTesting || app.status === 'closed_testing'
 
-  const handlePlayClick = () => {
-    if (isClosedTesting) {
-      setModalOpen(true)
-      return
-    }
-    if (app.playStoreUrl) {
-      window.open(app.playStoreUrl, '_blank', 'noopener,noreferrer')
-    }
-  }
-
   return (
     <>
       <div className="mt-6 flex flex-wrap gap-2 border-t border-zinc-800/80 pt-5">
@@ -95,7 +85,7 @@ export function StoreLinks({ app }: StoreLinksProps) {
         ) : (
           <>
             {app.playStoreUrl && (
-              <StoreBadge onClick={isClosedTesting ? handlePlayClick : undefined} href={!isClosedTesting ? app.playStoreUrl : undefined}>
+              <StoreBadge href={app.playStoreUrl}>
                 Google Play
                 {isClosedTesting && (
                   <span className="rounded bg-rose-500/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-rose-400">
@@ -140,7 +130,7 @@ export function StoreLinks({ app }: StoreLinksProps) {
       </div>
 
       {isClosedTesting && (
-        <PulseTestingModal open={modalOpen} onClose={() => setModalOpen(false)} />
+        <ClosedTestingModal app={app} open={modalOpen} onClose={() => setModalOpen(false)} />
       )}
     </>
   )
