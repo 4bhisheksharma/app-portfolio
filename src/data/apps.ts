@@ -9,7 +9,6 @@ export const apps: App[] = [
     name: 'Invisible VPN',
     description:
       'Secure way to surf online. One-tap WireGuard VPN, server health indicators, speed tests, and privacy-first browsing on mobile and Chrome.',
-    accent: 'violet',
     icon: 'shield',
     status: 'live',
     iconImage: '/apps/invisible-vpn.png',
@@ -27,7 +26,6 @@ export const apps: App[] = [
     name: 'P.U.L.S.E',
     description:
       'A local-first voice time-capsule app. Record messages, lock them until a future date, and listen when they unlock.',
-    accent: 'rose',
     icon: 'pulse',
     status: 'closed_testing',
     iconImage: '/apps/pulse.png',
@@ -43,7 +41,6 @@ export const apps: App[] = [
     name: 'Urban Homes',
     description:
       'Elevate your standards. Browse and discover urban properties with a clean, practical experience built for everyday home seekers.',
-    accent: 'amber',
     icon: 'home',
     status: 'live',
     iconImage: '/apps/urban-homes.png',
@@ -51,7 +48,7 @@ export const apps: App[] = [
       'https://play.google.com/store/apps/details?id=com.digitalpathshala.urbanhomes',
     iosComingSoon: false,
     appStoreUrl: 'https://apps.apple.com/us/app/urban-homes-np/id6796251918',
-    websiteUrl: 'https://urbanhomes.com.np/',  
+    websiteUrl: 'https://urbanhomes.com.np/',
   },
   {
     id: 'dhrms',
@@ -60,8 +57,7 @@ export const apps: App[] = [
     category: 'Healthcare',
     name: 'DHRMS',
     description:
-      'Digital Health Record Management System for Nepal',
-    accent: 'emerald',
+      'Digital Health Record Management System for Nepal.',
     icon: 'wallet',
     status: 'live',
     iconImage: '/apps/dhrms.png',
@@ -78,7 +74,6 @@ export const apps: App[] = [
     name: 'Belbari Municipality',
     description:
       'Official digital mobile app for Belbari Municipality (Morang, Nepal) providing citizen services, public notices, grievance redressal, ward information, and an AI municipal assistant.',
-    accent: 'emerald',
     icon: 'building',
     status: 'live',
     iconImage: '/apps/belbari-municipality.png',
@@ -94,12 +89,12 @@ export const apps: App[] = [
     name: 'Sanskar Vastu Compass',
     description:
       'A professional direction and planning companion for architects, Vastu consultants, students, and anyone who works with orientation, alignment, and site layout in real-world conditions.',
-    accent: 'rose',
     icon: 'compass',
     status: 'live',
     iconImage: '/apps/sanskar-vastu-compass.png',
     playStoreUrl:
       'https://play.google.com/store/apps/details?id=com.bobthedeveloper.mobileApp',
+    appStoreUrl: 'https://apps.apple.com/np/app/sanskar-vastu-compass/id6807282268',
     websiteUrl: 'https://sanskaracademy.net/',
   },
   {
@@ -110,7 +105,6 @@ export const apps: App[] = [
     name: 'Git Mosaic',
     description:
       'Beautiful GitHub contribution graph and streak widgets for your home screen. Track contribution streaks, customize color themes, and monitor daily activity at a glance.',
-    accent: 'emerald',
     icon: 'grid',
     status: 'closed_testing',
     iconImage: '/apps/git-mosaic.png',
@@ -128,7 +122,6 @@ export const apps: App[] = [
     name: 'Find The Imposter',
     description:
       'The pass-and-play party word game. Share subtle clues, spot the bluff, and catch the imposter with 3 to 20 players on a single phone.',
-    accent: 'orange',
     icon: 'game',
     status: 'closed_testing',
     iconImage: '/apps/find-the-imposter.png',
@@ -144,7 +137,6 @@ export const apps: App[] = [
     name: 'Hisab Khata',
     description:
       'A modern digital credit and transaction management system designed for small businesses in Nepal.',
-    accent: 'emerald',
     icon: 'finance',
     status: 'coming_soon',
   },
@@ -156,7 +148,6 @@ export const apps: App[] = [
     name: 'Digital Khata',
     description:
       'Flutter-powered mobile application for shop owners in Nepal to manage customer dues and purchase histories.',
-    accent: 'orange',
     icon: 'ledger',
     status: 'coming_soon',
   },

@@ -142,7 +142,7 @@ export function PulsePrivacyPage() {
       </p>
 
       <h2>7. Notifications</h2>
-      <p>P.U.L.S.E uses local notifications only — no remote push servers.</p>
+      <p>P.U.L.S.E uses local notifications only. There are no remote push servers.</p>
       <p>The App may notify you:</p>
       <ul>
         <li>When a capsule unlocks</li>

@@ -51,7 +51,7 @@ export function ClosedTestingModal({ app, open, onClose }: ClosedTestingModalPro
             app: app.name,
             appId: app.id,
             playStoreUrl: app.playStoreUrl || '',
-            _subject: `${app.name} — Closed Testing Interest`,
+            _subject: `${app.name}: Closed Testing Interest`,
             _template: 'table',
             message: `${name} (${email}) is interested in early/closed testing for ${app.name}.`,
           }),
@@ -72,30 +72,30 @@ export function ClosedTestingModal({ app, open, onClose }: ClosedTestingModalPro
     <dialog
       ref={dialogRef}
       onClose={handleClose}
-      className="fixed inset-0 z-[100] m-auto w-[min(100%,28rem)] max-h-[90vh] overflow-y-auto rounded-2xl border border-zinc-800 bg-zinc-900 p-0 shadow-2xl backdrop:bg-black/60 open:flex open:flex-col"
+      className="fixed inset-0 z-[100] m-auto w-[min(calc(100%-2rem),28rem)] max-h-[90vh] overflow-y-auto rounded-3xl border border-line bg-card p-0 text-fg shadow-2xl backdrop:bg-black/70 backdrop:backdrop-blur-sm open:flex open:flex-col"
     >
-      <div className="border-b border-zinc-800 px-6 py-5">
+      <div className="border-b border-line px-6 py-5">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
             {app.iconImage && (
               <img
                 src={app.iconImage}
                 alt={`${app.name} icon`}
-                className="h-10 w-10 shrink-0 rounded-xl border border-zinc-800 object-cover"
+                className="h-10 w-10 shrink-0 rounded-xl border border-line object-cover"
               />
             )}
             <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-rose-400">
+              <p className="font-mono text-[11px] text-accent">
                 Closed testing
               </p>
-              <h2 className="mt-0.5 text-lg font-semibold text-white">{app.name}</h2>
+              <h2 className="mt-0.5 text-lg font-medium tracking-tight">{app.name}</h2>
             </div>
           </div>
           <button
             type="button"
             onClick={handleClose}
             aria-label="Close"
-            className="rounded-lg p-1.5 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-200 cursor-pointer"
+            className="cursor-pointer rounded-full p-2 text-muted transition-colors hover:bg-white/[0.06] hover:text-fg"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
@@ -110,20 +110,20 @@ export function ClosedTestingModal({ app, open, onClose }: ClosedTestingModalPro
       </div>
 
       <div className="px-6 py-5">
-        <p className="text-sm leading-relaxed text-zinc-400">
-          <strong className="font-medium text-zinc-200">{app.name}</strong> is currently in{' '}
-          <strong className="font-medium text-zinc-200">closed testing</strong> on Google Play.
+        <p className="text-sm leading-relaxed text-muted">
+          <strong className="font-medium text-fg">{app.name}</strong> is currently in{' '}
+          <strong className="font-medium text-fg">closed testing</strong> on Google Play.
           The store listing is available to authorized testers.
         </p>
 
         {app.playStoreUrl && (
-          <div className="mt-3 rounded-xl border border-zinc-800/80 bg-zinc-800/40 p-3 text-xs text-zinc-400">
-            <span className="block font-medium text-zinc-300">Already an approved tester?</span>
+          <div className="mt-4 rounded-2xl border border-line bg-bg/60 p-3.5 text-xs text-muted">
+            <span className="block font-medium text-fg">Already an approved tester?</span>
             <a
               href={app.playStoreUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-1 inline-flex items-center gap-1.5 font-medium text-rose-400 hover:text-rose-300 underline underline-offset-2"
+              className="mt-1 inline-flex items-center gap-1.5 font-medium text-accent underline underline-offset-2 hover:opacity-80"
             >
               Open on Google Play
               <svg
@@ -145,13 +145,13 @@ export function ClosedTestingModal({ app, open, onClose }: ClosedTestingModalPro
           </div>
         )}
 
-        <p className="mt-3 text-sm leading-relaxed text-zinc-400">
+        <p className="mt-4 text-sm leading-relaxed text-muted">
           Interested in early access or becoming a closed tester? Leave your name and Google Play
-          email — we&apos;ll invite you when a spot opens.
+          email, and we&apos;ll invite you when a spot opens.
         </p>
 
         {formState === 'success' ? (
-          <div className="mt-6 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-400">
+          <div className="mt-6 rounded-2xl border border-accent/20 bg-accent/10 px-4 py-3 text-sm text-accent">
             Thanks! We&apos;ll be in touch at the email you provided once your account is added to
             the closed test group.
           </div>
@@ -160,7 +160,7 @@ export function ClosedTestingModal({ app, open, onClose }: ClosedTestingModalPro
             <div>
               <label
                 htmlFor={`${app.id}-name`}
-                className="block text-sm font-medium text-zinc-300"
+                className="block text-sm text-muted"
               >
                 Name
               </label>
@@ -170,14 +170,14 @@ export function ClosedTestingModal({ app, open, onClose }: ClosedTestingModalPro
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="mt-1.5 w-full rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-2.5 text-sm text-white outline-none transition-shadow placeholder:text-zinc-600 focus:border-zinc-600 focus:ring-2 focus:ring-zinc-700"
+                className="mt-1.5 w-full rounded-xl border border-line bg-bg px-3.5 py-3 text-base text-fg outline-none transition-colors placeholder:text-faint focus:border-accent/60 sm:text-sm"
                 placeholder="Your name"
               />
             </div>
             <div>
               <label
                 htmlFor={`${app.id}-email`}
-                className="block text-sm font-medium text-zinc-300"
+                className="block text-sm text-muted"
               >
                 Google Play Email
               </label>
@@ -187,13 +187,13 @@ export function ClosedTestingModal({ app, open, onClose }: ClosedTestingModalPro
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1.5 w-full rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-2.5 text-sm text-white outline-none transition-shadow placeholder:text-zinc-600 focus:border-zinc-600 focus:ring-2 focus:ring-zinc-700"
+                className="mt-1.5 w-full rounded-xl border border-line bg-bg px-3.5 py-3 text-base text-fg outline-none transition-colors placeholder:text-faint focus:border-accent/60 sm:text-sm"
                 placeholder="you@example.com"
               />
             </div>
 
             {formState === 'error' && (
-              <p className="text-sm text-red-400">
+              <p className="text-sm text-rose-300">
                 Something went wrong. Please try again or email{' '}
                 <a
                   href={`mailto:${siteConfig.testingContactEmail}`}
@@ -208,7 +208,7 @@ export function ClosedTestingModal({ app, open, onClose }: ClosedTestingModalPro
             <button
               type="submit"
               disabled={formState === 'submitting'}
-              className="w-full rounded-lg bg-white px-4 py-2.5 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 disabled:opacity-60 cursor-pointer"
+              className="w-full cursor-pointer rounded-full bg-fg px-4 py-3 text-sm font-medium text-bg transition-transform duration-300 ease-out hover:scale-[1.01] active:scale-[0.98] disabled:opacity-60"
             >
               {formState === 'submitting' ? 'Sending…' : 'Request early access'}
             </button>

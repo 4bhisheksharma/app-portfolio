@@ -45,8 +45,8 @@ export function FindTheImposterPrivacyPage() {
           age) to use the App.
         </li>
         <li>
-          <strong>Game Data &amp; Settings:</strong> All gameplay configurations—such as player
-          counts, selected categories, round timers, and display preferences (Light/Dark theme)—are
+          <strong>Game Data &amp; Settings:</strong> All gameplay configurations, such as player
+          counts, selected categories, round timers, and display preferences (Light/Dark theme), are
           processed and stored strictly on your local device. This data is never sent to external
           servers.
         </li>

@@ -2,15 +2,8 @@ import type { SiteConfig } from '../types/app'
 
 export const siteConfig: SiteConfig = {
   name: 'Abhishek Sharma',
-  title: "Apps I've Built",
-  subtitle: 'Mobile apps for Android and iOS — privacy, voice, and everyday tools.',
-  sectionLabel: 'Portfolio',
-  appCount: 10,
+  subtitle: 'Mobile apps for Android and iOS, from privacy tools and voice journals to everyday utilities.',
   portfolioUrl: 'https://www.abhishek-sharma.com.np/',
+  logo: '/logo.png',
   testingContactEmail: 'developer@abhishek-sharma.com.np',
-  navLinks: [
-    { label: 'Abhishek Sharma', href: 'https://www.abhishek-sharma.com.np/' },
-    { label: '10 Apps' },
-    { label: 'Portfolio', href: 'https://www.abhishek-sharma.com.np/' },
-  ],
 }

@@ -1,4 +1,5 @@
 import type { SiteConfig } from '../../types/app'
+import { ExternalLink } from '../ui/ExternalLink'
 
 interface SiteFooterProps {
   config: SiteConfig
@@ -6,18 +7,21 @@ interface SiteFooterProps {
 
 export function SiteFooter({ config }: SiteFooterProps) {
   return (
-    <footer className="mt-16 border-t border-zinc-800/80 pt-8 text-center">
-      <p className="text-sm text-zinc-600">
-        Built by{' '}
-        <a
-          href={config.portfolioUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-medium text-zinc-400 underline-offset-2 transition-colors hover:text-zinc-200 hover:underline"
-        >
-          {config.name}
-        </a>
+    <footer className="mt-20 flex flex-col gap-3 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+      <p>
+        © {new Date().getFullYear()} {config.name}
       </p>
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
+        <a
+          href={`mailto:${config.testingContactEmail}`}
+          className="link-underline py-1.5 transition-colors hover:text-fg"
+        >
+          {config.testingContactEmail}
+        </a>
+        <ExternalLink href={config.portfolioUrl} className="py-1.5">
+          Portfolio
+        </ExternalLink>
+      </div>
     </footer>
   )
 }

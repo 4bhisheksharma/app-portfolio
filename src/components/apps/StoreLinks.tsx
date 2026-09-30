@@ -1,70 +1,47 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { App } from '../../types/app'
-import { ExternalLink } from '../ui/ExternalLink'
+import { ArrowUpRight, ExternalLink } from '../ui/ExternalLink'
+import { AppleIcon, ChromeIcon, PlayIcon } from '../ui/StoreIcons'
 import { ClosedTestingModal } from './ClosedTestingModal'
 
 interface StoreLinksProps {
   app: App
 }
 
-function StoreBadge({
-  children,
-  href,
-  onClick,
-  disabled,
-}: {
-  children: React.ReactNode
-  href?: string
-  onClick?: () => void
-  disabled?: boolean
-}) {
-  const base =
-    'inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors'
+const buttonBase =
+  'inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-[13px] font-medium transition-all duration-300 ease-out active:scale-[0.97]'
 
-  if (disabled) {
+/** Primary action: a store the app can be installed from. */
+function StoreButton({ href, icon, children }: { href: string; icon: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${buttonBase} border border-line bg-card text-fg hover:border-white/20 hover:bg-white/[0.04]`}
+    >
+      {icon}
+      {children}
+    </a>
+  )
+}
+
+/** Secondary link: website, source, policy. */
+function TextLink({ href, children }: { href: string; children: React.ReactNode }) {
+  const className = 'py-2 text-[13px] text-muted'
+  if (href.startsWith('/')) {
     return (
-      <span className={`${base} border-zinc-800/60 bg-zinc-900/40 text-zinc-600`}>
+      <Link to={href} className={`${className} link-underline transition-colors hover:text-fg`}>
         {children}
-      </span>
+      </Link>
     )
   }
-
-  if (onClick) {
-    return (
-      <button
-        type="button"
-        onClick={onClick}
-        className={`${base} border-zinc-700/60 bg-zinc-800/50 text-zinc-300 hover:border-zinc-600 hover:bg-zinc-800 hover:text-white cursor-pointer`}
-      >
-        {children}
-      </button>
-    )
-  }
-
-  if (href) {
-    if (href.startsWith('/')) {
-      return (
-        <Link
-          to={href}
-          className={`${base} border-zinc-700/60 bg-zinc-800/50 text-zinc-300 hover:border-zinc-600 hover:bg-zinc-800 hover:text-white`}
-        >
-          {children}
-        </Link>
-      )
-    }
-
-    return (
-      <ExternalLink
-        href={href}
-        className={`${base} border-zinc-700/60 bg-zinc-800/50 text-zinc-300 hover:border-zinc-600 hover:bg-zinc-800 hover:text-white`}
-      >
-        {children}
-      </ExternalLink>
-    )
-  }
-
-  return null
+  return (
+    <ExternalLink href={href} className={className}>
+      {children}
+    </ExternalLink>
+  )
 }
 
 export function StoreLinks({ app }: StoreLinksProps) {
@@ -72,62 +49,58 @@ export function StoreLinks({ app }: StoreLinksProps) {
   const isComingSoon = app.status === 'coming_soon'
   const isClosedTesting = app.closedTesting || app.status === 'closed_testing'
 
+  if (isComingSoon) {
+    return <p className="mt-4 text-[13px] text-faint">In development. Not yet available.</p>
+  }
+
+  // Websites that are just the repo are shown once, as GitHub
+  const website = app.websiteUrl && app.websiteUrl !== app.githubUrl ? app.websiteUrl : undefined
+  const hasSecondary = website || app.githubUrl || app.privacyUrl || (isClosedTesting && app.playStoreUrl)
+
   return (
     <>
-      <div className="mt-6 flex flex-wrap gap-2 border-t border-zinc-800/80 pt-5">
-        {isComingSoon ? (
-          <>
-            <StoreBadge disabled>Coming soon</StoreBadge>
-            {app.websiteUrl && <StoreBadge href={app.websiteUrl}>Website</StoreBadge>}
-            {app.githubUrl && <StoreBadge href={app.githubUrl}>GitHub</StoreBadge>}
-            {app.privacyUrl && <StoreBadge href={app.privacyUrl}>Privacy</StoreBadge>}
-          </>
-        ) : (
-          <>
-            {app.playStoreUrl && (
-              <StoreBadge href={app.playStoreUrl}>
-                Google Play
-                {isClosedTesting && (
-                  <span className="rounded bg-rose-500/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-rose-400">
-                    Closed
-                  </span>
-                )}
-              </StoreBadge>
-            )}
-
-            {app.websiteUrl && (
-              <StoreBadge href={app.websiteUrl}>Website</StoreBadge>
-            )}
-
-            {app.chromeStoreUrl && (
-              <StoreBadge href={app.chromeStoreUrl}>Chrome</StoreBadge>
-            )}
-
-            {app.githubUrl && (
-              <StoreBadge href={app.githubUrl}>GitHub</StoreBadge>
-            )}
-
-            {app.appStoreUrl ? (
-              <StoreBadge href={app.appStoreUrl}>App Store</StoreBadge>
-            ) : app.iosComingSoon ? (
-              <StoreBadge disabled>
-                iOS
-                <span className="text-zinc-600">· Soon</span>
-              </StoreBadge>
-            ) : null}
-
-            {app.privacyUrl && (
-              <StoreBadge href={app.privacyUrl}>Privacy</StoreBadge>
-            )}
-
-            {isClosedTesting && (
-              <StoreBadge onClick={() => setModalOpen(true)}>
-                Join testing
-              </StoreBadge>
-            )}
-          </>
+      <div className="mt-5 flex flex-wrap items-center gap-2">
+        {isClosedTesting && (
+          <button
+            type="button"
+            onClick={() => setModalOpen(true)}
+            className={`${buttonBase} group/ext cursor-pointer bg-accent text-bg hover:brightness-110`}
+          >
+            Join testing
+            <ArrowUpRight className="opacity-80" />
+          </button>
+        )}
+        {!isClosedTesting && app.playStoreUrl && (
+          <StoreButton href={app.playStoreUrl} icon={<PlayIcon />}>
+            Google Play
+          </StoreButton>
+        )}
+        {app.appStoreUrl && (
+          <StoreButton href={app.appStoreUrl} icon={<AppleIcon />}>
+            App Store
+          </StoreButton>
+        )}
+        {app.chromeStoreUrl && (
+          <StoreButton href={app.chromeStoreUrl} icon={<ChromeIcon />}>
+            Chrome
+          </StoreButton>
+        )}
+        {!app.appStoreUrl && app.iosComingSoon && (
+          <span className={`${buttonBase} border border-dashed border-line text-faint`}>
+            <AppleIcon />
+            iOS soon
+          </span>
         )}
       </div>
+
+      {hasSecondary && (
+        <div className="mt-2 flex flex-wrap items-center gap-x-5">
+          {isClosedTesting && app.playStoreUrl && <TextLink href={app.playStoreUrl}>Google Play (testers)</TextLink>}
+          {website && <TextLink href={website}>Website</TextLink>}
+          {app.githubUrl && <TextLink href={app.githubUrl}>GitHub</TextLink>}
+          {app.privacyUrl && <TextLink href={app.privacyUrl}>Privacy</TextLink>}
+        </div>
+      )}
 
       {isClosedTesting && (
         <ClosedTestingModal app={app} open={modalOpen} onClose={() => setModalOpen(false)} />
