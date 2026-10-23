@@ -30,6 +30,8 @@ export interface App {
   privacyUrl?: string
   iosComingSoon?: boolean
   closedTesting?: boolean
+  /** Recently released; shows a "New" badge */
+  isNew?: boolean
 }
 
 export interface SiteConfig {

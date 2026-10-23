@@ -8,6 +8,8 @@ interface AppCardProps {
   index: number
   /** Staggered entrance; only used on first load so filtering doesn't replay it. */
   stagger: boolean
+  /** Briefly emphasised after arriving from a deep link (#app-id). */
+  highlighted?: boolean
 }
 
 const statusMeta: Record<AppStatus, { label: string; dot: string }> = {
@@ -16,15 +18,18 @@ const statusMeta: Record<AppStatus, { label: string; dot: string }> = {
   coming_soon: { label: 'Soon', dot: 'bg-faint' },
 }
 
-export function AppCard({ app, index, stagger }: AppCardProps) {
+export function AppCard({ app, index, stagger, highlighted = false }: AppCardProps) {
   const status = statusMeta[app.status]
 
   return (
     <motion.article
+      id={app.id}
       initial={stagger ? { opacity: 0, y: 18 } : false}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.45 + index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-      className="group -mx-3 my-2 flex gap-4 rounded-2xl px-3 py-5 transition-colors duration-500 hover:bg-white/[0.025] sm:gap-5 sm:py-6"
+      className={`group -mx-3 my-2 flex scroll-mt-40 gap-4 rounded-2xl px-3 py-5 transition-[background-color,box-shadow] duration-700 hover:bg-white/[0.025] sm:gap-5 sm:py-6 ${
+        highlighted ? 'bg-accent/[0.05] shadow-[inset_0_0_0_1px_rgb(106_255_157/0.35)]' : ''
+      }`}
     >
       {app.iconImage ? (
         <img
@@ -43,7 +48,20 @@ export function AppCard({ app, index, stagger }: AppCardProps) {
 
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline justify-between gap-3">
-          <h2 className="text-lg font-medium tracking-tight">{app.name}</h2>
+          <h2 className="flex min-w-0 items-center gap-2 text-lg font-medium tracking-tight">
+            {/* the name doubles as a shareable link to this app */}
+            <a href={`#${app.id}`} className="group/name truncate">
+              {app.name}
+              <span className="ml-1.5 text-faint opacity-0 transition-opacity group-hover/name:opacity-100" aria-hidden="true">
+                #
+              </span>
+            </a>
+            {app.isNew && (
+              <span className="shrink-0 rounded-full bg-accent/10 px-2 py-0.5 font-mono text-[10px] font-normal tracking-normal text-accent">
+                New
+              </span>
+            )}
+          </h2>
           <span className="flex shrink-0 items-center gap-1.5 font-mono text-[11px] text-muted">
             <span className={`h-1.5 w-1.5 rounded-full ${status.dot}`} aria-hidden="true" />
             {status.label}

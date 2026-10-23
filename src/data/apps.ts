@@ -2,6 +2,38 @@ import type { App } from '../types/app'
 
 export const apps: App[] = [
   {
+    id: 'chill-nepal',
+    number: '11',
+    tag: 'Travel',
+    category: 'Trip Planner',
+    name: 'ChillNepal',
+    description:
+      'Your travel companion for Nepal. Find places near you across all 7 provinces and 77 districts, build day-by-day trip plans, collect a digital Nepal passport of your discoveries, and earn Chill Points.',
+    icon: 'compass',
+    status: 'live',
+    isNew: true,
+    iconImage: '/apps/chill-nepal.jpg',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.illuminati.chillnepal',
+    websiteUrl: 'https://www.chillnepal.app/',
+    iosComingSoon: true,
+  },
+  {
+    id: 'jft-test',
+    number: '12',
+    tag: 'Education',
+    category: 'Exam Prep',
+    name: 'JFT Test with Indra',
+    description:
+      'Prepare for the JFT-Basic Japanese exam with exam-style mock tests, focused practice for vocabulary, grammar, kanji and listening, detailed answer explanations, and progress tracking that highlights weak areas.',
+    icon: 'ledger',
+    status: 'live',
+    isNew: true,
+    iconImage: '/apps/jft.jpg',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.illuminati.jft.app',
+    websiteUrl: 'https://thejfttest.com/',
+    iosComingSoon: true,
+  },
+  {
     id: 'invisible-vpn',
     number: '01',
     tag: 'Privacy',
