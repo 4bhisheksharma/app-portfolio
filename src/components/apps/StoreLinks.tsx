@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { App } from '../../types/app'
 import { ArrowUpRight, ExternalLink } from '../ui/ExternalLink'
-import { AppleIcon, ChromeIcon, PlayIcon } from '../ui/StoreIcons'
+import { AppleIcon, ChromeIcon, DownloadIcon, PlayIcon } from '../ui/StoreIcons'
 import { ClosedTestingModal } from './ClosedTestingModal'
 
 interface StoreLinksProps {
@@ -83,6 +83,11 @@ export function StoreLinks({ app }: StoreLinksProps) {
         {app.chromeStoreUrl && (
           <StoreButton href={app.chromeStoreUrl} icon={<ChromeIcon />}>
             Chrome
+          </StoreButton>
+        )}
+        {app.downloadUrl && (
+          <StoreButton href={app.downloadUrl} icon={<DownloadIcon />}>
+            Download APK
           </StoreButton>
         )}
         {!app.appStoreUrl && app.iosComingSoon && (
