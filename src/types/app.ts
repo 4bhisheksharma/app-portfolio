@@ -12,6 +12,7 @@ export type AppIcon =
   | 'grid'
   | 'game'
   | 'toggle'
+  | 'newspaper'
 
 export interface App {
   id: string

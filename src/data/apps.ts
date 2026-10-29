@@ -66,8 +66,40 @@ export const apps: App[] = [
     iosComingSoon: true,
   },
   {
-    id: 'pulse',
+    id: 'question-times',
     number: '05',
+    tag: 'News',
+    category: 'International News',
+    name: 'Question Times',
+    description:
+      'Authoritative international journalism, continental dispatches & global news. Delivers curated world coverage, breaking global reports, and deep perspectives.',
+    icon: 'newspaper',
+    status: 'live',
+    isNew: true,
+    iconImage: '/apps/question-times.png',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.illuminati.questiontimes.app',
+    websiteUrl: 'https://www.questiontimes.info/',
+    iosComingSoon: true,
+  },
+  {
+    id: 'question-nepal',
+    number: '06',
+    tag: 'News',
+    category: 'National News',
+    name: 'Question Nepal',
+    description:
+      'Independent journalism and breaking news from all 7 provinces of Nepal. Dedicated regional dispatches, national affairs, and province-by-province coverage.',
+    icon: 'newspaper',
+    status: 'live',
+    isNew: true,
+    iconImage: '/apps/question-nepal.png',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.illuminati.questionnepal.app',
+    websiteUrl: 'https://www.questionnepal.info/',
+    iosComingSoon: true,
+  },
+  {
+    id: 'pulse',
+    number: '07',
     tag: 'Voice',
     category: 'Time Capsule',
     name: 'P.U.L.S.E',
@@ -82,7 +114,7 @@ export const apps: App[] = [
   },
   {
     id: 'urban-homes',
-    number: '06',
+    number: '08',
     tag: 'Real Estate',
     category: 'Property',
     name: 'Urban Homes',
@@ -99,7 +131,7 @@ export const apps: App[] = [
   },
   {
     id: 'dhrms',
-    number: '07',
+    number: '09',
     tag: 'Health',
     category: 'Healthcare',
     name: 'DHRMS',
@@ -115,7 +147,7 @@ export const apps: App[] = [
   },
   {
     id: 'belbari-municipality',
-    number: '08',
+    number: '10',
     tag: 'Gov',
     category: 'Municipality',
     name: 'Belbari Municipality',
@@ -130,7 +162,7 @@ export const apps: App[] = [
   },
   {
     id: 'sanskar-vastu-compass',
-    number: '09',
+    number: '11',
     tag: 'Vastu',
     category: 'Compass',
     name: 'Sanskar Vastu Compass',
@@ -146,7 +178,7 @@ export const apps: App[] = [
   },
   {
     id: 'git-mosaic',
-    number: '10',
+    number: '12',
     tag: 'Widget',
     category: 'Home Screen Widget',
     name: 'Git Mosaic',
@@ -163,7 +195,7 @@ export const apps: App[] = [
   },
   {
     id: 'find-the-imposter',
-    number: '11',
+    number: '13',
     tag: 'Party Game',
     category: 'Social Deduction',
     name: 'Find The Imposter',
@@ -178,7 +210,7 @@ export const apps: App[] = [
   },
   {
     id: 'hisab-khata',
-    number: '12',
+    number: '14',
     tag: 'Finance',
     category: 'Business',
     name: 'Hisab Khata',
@@ -189,7 +221,7 @@ export const apps: App[] = [
   },
   {
     id: 'digital-khata',
-    number: '13',
+    number: '15',
     tag: 'Ledger',
     category: 'Shop Management',
     name: 'Digital Khata',
