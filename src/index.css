@@ -16,6 +16,19 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+@keyframes highlight-glow {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(106, 255, 157, 0.25), inset 0 0 0 1px rgba(106, 255, 157, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 45px rgba(106, 255, 157, 0.45), inset 0 0 0 1.5px rgba(106, 255, 157, 0.8);
+  }
+}
+
+.animate-highlight-glow {
+  animation: highlight-glow 2s ease-in-out infinite;
+}
+
 html {
   scroll-behavior: smooth;
   background: var(--color-bg);

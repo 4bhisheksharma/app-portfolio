@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import type { App, AppStatus } from '../../types/app'
 import { AppIcon } from './AppIcon'
@@ -10,6 +11,8 @@ interface AppCardProps {
   stagger: boolean
   /** Briefly emphasised after arriving from a deep link (#app-id). */
   highlighted?: boolean
+  /** Callback when card or its hash link is clicked to highlight and update URL */
+  onSelect?: (appId: string) => void
 }
 
 const statusMeta: Record<AppStatus, { label: string; dot: string }> = {
@@ -18,8 +21,28 @@ const statusMeta: Record<AppStatus, { label: string; dot: string }> = {
   coming_soon: { label: 'Soon', dot: 'bg-faint' },
 }
 
-export function AppCard({ app, index, stagger, highlighted = false }: AppCardProps) {
+export function AppCard({ app, index, stagger, highlighted = false, onSelect }: AppCardProps) {
   const status = statusMeta[app.status]
+  const [copied, setCopied] = useState(false)
+
+  const handleLinkClick = (e: React.MouseEvent) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
+      return
+    }
+    e.preventDefault()
+    // Update hash and trigger selection
+    if (window.location.hash !== `#${app.id}`) {
+      window.history.pushState(null, '', `#${app.id}`)
+      window.dispatchEvent(new HashChangeEvent('hashchange'))
+    }
+    onSelect?.(app.id)
+
+    // Also copy direct link to clipboard for convenience
+    const fullUrl = `${window.location.origin}${window.location.pathname}#${app.id}`
+    navigator.clipboard?.writeText(fullUrl).catch(() => {})
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <motion.article
@@ -27,8 +50,10 @@ export function AppCard({ app, index, stagger, highlighted = false }: AppCardPro
       initial={stagger ? { opacity: 0, y: 18 } : false}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.45 + index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-      className={`group -mx-3 my-2 flex scroll-mt-40 gap-4 rounded-2xl px-3 py-5 transition-[background-color,box-shadow] duration-700 hover:bg-white/[0.025] sm:gap-5 sm:py-6 ${
-        highlighted ? 'bg-accent/[0.05] shadow-[inset_0_0_0_1px_rgb(106_255_157/0.35)]' : ''
+      className={`group -mx-3 my-2 flex scroll-mt-36 gap-4 rounded-2xl px-3 py-5 transition-[background-color,box-shadow,transform] duration-500 sm:gap-5 sm:py-6 ${
+        highlighted
+          ? 'bg-accent/[0.08] ring-2 ring-accent animate-highlight-glow shadow-[0_0_35px_rgba(106,255,157,0.3)]'
+          : 'hover:bg-white/[0.025]'
       }`}
     >
       {app.iconImage ? (
@@ -50,12 +75,32 @@ export function AppCard({ app, index, stagger, highlighted = false }: AppCardPro
         <div className="flex items-baseline justify-between gap-3">
           <h2 className="flex min-w-0 items-center gap-2 text-lg font-medium tracking-tight">
             {/* the name doubles as a shareable link to this app */}
-            <a href={`#${app.id}`} className="group/name truncate">
-              {app.name}
-              <span className="ml-1.5 text-faint opacity-0 transition-opacity group-hover/name:opacity-100" aria-hidden="true">
+            <a
+              href={`#${app.id}`}
+              onClick={handleLinkClick}
+              title={`Copy link to ${app.name} (#${app.id})`}
+              className="group/name truncate flex items-center"
+            >
+              <span className="truncate">{app.name}</span>
+              <span
+                className={`ml-1.5 font-mono text-xs transition-opacity duration-300 ${
+                  highlighted ? 'text-accent opacity-100 font-bold' : 'text-faint opacity-0 group-hover/name:opacity-100'
+                }`}
+                aria-hidden="true"
+              >
                 #
               </span>
             </a>
+            {copied && (
+              <span className="shrink-0 rounded bg-accent/20 px-1.5 py-0.5 font-mono text-[10px] text-accent border border-accent/30">
+                Copied!
+              </span>
+            )}
+            {highlighted && !copied && (
+              <span className="shrink-0 rounded-full bg-accent/15 px-2 py-0.5 font-mono text-[10px] font-normal text-accent border border-accent/40 animate-pulse">
+                Highlighted
+              </span>
+            )}
             {app.isNew && (
               <span className="shrink-0 rounded-full bg-accent/10 px-2 py-0.5 font-mono text-[10px] font-normal tracking-normal text-accent">
                 New

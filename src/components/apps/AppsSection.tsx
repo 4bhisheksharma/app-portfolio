@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 import type { App, AppStatus } from '../../types/app'
 import { AppCard } from './AppCard'
 
@@ -19,6 +19,62 @@ const filters: { id: Filter; label: string; param: string }[] = [
 
 const ease = [0.22, 1, 0.36, 1] as const
 
+function normalizeString(str: string): string {
+  return str.toLowerCase().replace(/[^a-z0-9]/g, '')
+}
+
+export function findAppByHash(rawHash: string, appList: App[]): App | undefined {
+  if (!rawHash) return undefined
+  let clean = rawHash.replace(/^[#/]+/, '').trim()
+  try {
+    clean = decodeURIComponent(clean)
+  } catch {
+    // ignore malformed uri
+  }
+  if (!clean) return undefined
+
+  const cleanLower = clean.toLowerCase().trim()
+  const cleanNorm = normalizeString(clean)
+
+  // 1. Exact ID match (case-insensitive)
+  const byId = appList.find((a) => a.id.toLowerCase() === cleanLower)
+  if (byId) return byId
+
+  // 2. Exact Name match (case-insensitive)
+  const byName = appList.find((a) => a.name.toLowerCase() === cleanLower)
+  if (byName) return byName
+
+  // 3. Normalized alphanumeric match on ID or Name (handles e.g. "ChillNepal", "chill-nepal", "Chill Nepal")
+  const byNorm = appList.find((a) => {
+    return normalizeString(a.id) === cleanNorm || normalizeString(a.name) === cleanNorm
+  })
+  if (byNorm) return byNorm
+
+  // 4. Slugified name match (replacing spaces with hyphens)
+  const slugified = cleanLower.replace(/\s+/g, '-')
+  const bySlug = appList.find(
+    (a) => a.id.toLowerCase() === slugified || a.name.toLowerCase().replace(/\s+/g, '-') === slugified,
+  )
+  if (bySlug) return bySlug
+
+  // 5. Partial / prefix contains (e.g. #imposter matches #find-the-imposter, #jft matches #jft-test)
+  if (cleanNorm.length >= 3) {
+    const byContains = appList.find((a) => {
+      const aIdNorm = normalizeString(a.id)
+      const aNameNorm = normalizeString(a.name)
+      return (
+        aIdNorm.includes(cleanNorm) ||
+        aNameNorm.includes(cleanNorm) ||
+        cleanNorm.includes(aIdNorm) ||
+        cleanNorm.includes(aNameNorm)
+      )
+    })
+    if (byContains) return byContains
+  }
+
+  return undefined
+}
+
 function matches(app: App, query: string) {
   if (!query) return true
   const haystack = `${app.name} ${app.tag} ${app.category} ${app.description}`.toLowerCase()
@@ -31,13 +87,17 @@ function matches(app: App, query: string) {
 export function AppsSection({ apps }: AppsSectionProps) {
   // Filter and search live in the URL (?filter=live&q=vpn) so a view can be shared or bookmarked
   const [params, setParams] = useSearchParams()
+  const location = useLocation()
   const filter = filters.find((f) => f.param && f.param === params.get('filter'))?.id ?? 'all'
   // Typing updates local state immediately; the URL follows, so fast keystrokes are never lost
   const [query, setQuery] = useState(() => params.get('q') ?? '')
   const [touched, setTouched] = useState(false)
   const [highlight, setHighlight] = useState<string | null>(null)
+  const [activeHash, setActiveHash] = useState(() => window.location.hash || location.hash)
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
   const searchRef = useRef<HTMLInputElement>(null)
+  const isInitialMount = useRef(true)
+  const highlightTimerRef = useRef<number | null>(null)
 
   const searched = apps.filter((app) => matches(app, query.trim()))
   const visible = filter === 'all' ? searched : searched.filter((app) => app.status === filter)
@@ -87,20 +147,83 @@ export function AppsSection({ apps }: AppsSectionProps) {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  // Deep links (#chill-nepal) scroll to the app and briefly highlight it
+  // Synchronize hash from react-router location
   useEffect(() => {
-    const id = decodeURIComponent(window.location.hash.slice(1))
-    if (!id || !apps.some((a) => a.id === id)) return
+    if (location.hash) {
+      setActiveHash(location.hash)
+    }
+  }, [location.hash])
+
+  // Synchronize hash from window hashchange (e.g. native anchor click, popstate, or history pushState)
+  useEffect(() => {
+    const handleHash = () => {
+      setActiveHash(window.location.hash)
+    }
+    window.addEventListener('hashchange', handleHash)
+    return () => window.removeEventListener('hashchange', handleHash)
+  }, [])
+
+  // Deep links (e.g. #chill-nepal, #Chill Nepal, #invisible vpn) scroll to the app and highlight it
+  useEffect(() => {
+    if (!activeHash) return
+
+    const matched = findAppByHash(activeHash, apps)
+    if (!matched) return
+
+    let didReset = false
+    // If the matched app is filtered out by query or status filter, reset them so the card renders
+    if (query.trim() && !matches(matched, query.trim())) {
+      setQuery('')
+      didReset = true
+    }
+    if (filter !== 'all' && matched.status !== filter) {
+      didReset = true
+    }
+
+    if (didReset) {
+      setParams(
+        (prev) => {
+          const next = new URLSearchParams(prev)
+          next.delete('filter')
+          next.delete('q')
+          return next
+        },
+        { replace: true, preventScrollReset: true },
+      )
+    }
+
+    // Delay scroll to allow initial layout or filter-reset rendering to settle
+    const delay = isInitialMount.current ? 650 : didReset ? 220 : 60
+    isInitialMount.current = false
+
     const timer = window.setTimeout(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      setHighlight(id)
-    }, 700)
-    const clear = window.setTimeout(() => setHighlight(null), 3200)
+      const el = document.getElementById(matched.id)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+      setHighlight(matched.id)
+
+      if (highlightTimerRef.current) {
+        window.clearTimeout(highlightTimerRef.current)
+      }
+      highlightTimerRef.current = window.setTimeout(() => {
+        setHighlight(null)
+      }, 4500)
+    }, delay)
+
     return () => {
       window.clearTimeout(timer)
-      window.clearTimeout(clear)
     }
-  }, [apps])
+  }, [activeHash, apps, filter, query, setParams])
+
+  // Clean up timers on unmount
+  useEffect(() => {
+    return () => {
+      if (highlightTimerRef.current) {
+        window.clearTimeout(highlightTimerRef.current)
+      }
+    }
+  }, [])
 
   const reset = () => {
     setTouched(true)
@@ -220,7 +343,21 @@ export function AppsSection({ apps }: AppsSectionProps) {
               transition={{ duration: 0.5, ease }}
               className="border-b border-line"
             >
-              <AppCard app={app} index={index} stagger={!touched} highlighted={highlight === app.id} />
+              <AppCard
+                app={app}
+                index={index}
+                stagger={!touched}
+                highlighted={highlight === app.id}
+                onSelect={(id) => {
+                  setHighlight(id)
+                  if (highlightTimerRef.current) {
+                    window.clearTimeout(highlightTimerRef.current)
+                  }
+                  highlightTimerRef.current = window.setTimeout(() => {
+                    setHighlight(null)
+                  }, 4500)
+                }}
+              />
             </motion.li>
           ))}
         </AnimatePresence>
