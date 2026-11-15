@@ -4,6 +4,7 @@ import { GitMosaicPrivacyPage } from './pages/GitMosaicPrivacyPage'
 import { HomePage } from './pages/HomePage'
 import { PulseAccountDeletionPage } from './pages/PulseAccountDeletionPage'
 import { PulsePrivacyPage } from './pages/PulsePrivacyPage'
+import { SwitchlyPrivacyPage } from './pages/SwitchlyPrivacyPage'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/find-the-imposter/privacy" element={<FindTheImposterPrivacyPage />} />
       <Route path="/findtheimposter/privacy" element={<FindTheImposterPrivacyPage />} />
       <Route path="/imposter/privacy" element={<FindTheImposterPrivacyPage />} />
+      <Route path="/switchly/privacy" element={<SwitchlyPrivacyPage />} />
     </Routes>
   )
 }

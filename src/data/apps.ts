@@ -27,9 +27,12 @@ export const apps: App[] = [
     description:
       'One-tap Quick Settings tiles for Android settings that do not have one. Private DNS switcher, internet kill switch, caffeine, grayscale, live battery stats, and customizable toggles.',
     icon: 'toggle',
-    status: 'live',
+    status: 'closed_testing',
     isNew: true,
     iconImage: '/apps/switchly.png',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=app.utils.switchly',
+    privacyUrl: '/switchly/privacy',
+    closedTesting: true,
     downloadUrl: 'https://github.com/4bhisheksharma/switchly/releases/latest',
     githubUrl: 'https://github.com/4bhisheksharma/switchly',
   },
