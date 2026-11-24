@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { App } from '../../types/app'
-import { siteConfig } from '../../data/site'
+import { usePortfolioData } from '../../context/PortfolioContext'
 
 export interface ClosedTestingModalProps {
   app: App
@@ -11,6 +11,7 @@ export interface ClosedTestingModalProps {
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
 export function ClosedTestingModal({ app, open, onClose }: ClosedTestingModalProps) {
+  const { siteConfig } = usePortfolioData()
   const dialogRef = useRef<HTMLDialogElement>(null)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')

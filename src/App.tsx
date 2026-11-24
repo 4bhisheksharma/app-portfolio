@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
+import { PortfolioProvider } from './context/PortfolioContext'
 import { FindTheImposterPrivacyPage } from './pages/FindTheImposterPrivacyPage'
 import { GitMosaicPrivacyPage } from './pages/GitMosaicPrivacyPage'
 import { HomePage } from './pages/HomePage'
@@ -8,16 +9,18 @@ import { SwitchlyPrivacyPage } from './pages/SwitchlyPrivacyPage'
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/pulse/privacy" element={<PulsePrivacyPage />} />
-      <Route path="/pulse/account-deletion" element={<PulseAccountDeletionPage />} />
-      <Route path="/gitmosaic/privacy" element={<GitMosaicPrivacyPage />} />
-      <Route path="/find-the-imposter/privacy" element={<FindTheImposterPrivacyPage />} />
-      <Route path="/findtheimposter/privacy" element={<FindTheImposterPrivacyPage />} />
-      <Route path="/imposter/privacy" element={<FindTheImposterPrivacyPage />} />
-      <Route path="/switchly/privacy" element={<SwitchlyPrivacyPage />} />
-    </Routes>
+    <PortfolioProvider>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/pulse/privacy" element={<PulsePrivacyPage />} />
+        <Route path="/pulse/account-deletion" element={<PulseAccountDeletionPage />} />
+        <Route path="/gitmosaic/privacy" element={<GitMosaicPrivacyPage />} />
+        <Route path="/find-the-imposter/privacy" element={<FindTheImposterPrivacyPage />} />
+        <Route path="/findtheimposter/privacy" element={<FindTheImposterPrivacyPage />} />
+        <Route path="/imposter/privacy" element={<FindTheImposterPrivacyPage />} />
+        <Route path="/switchly/privacy" element={<SwitchlyPrivacyPage />} />
+      </Routes>
+    </PortfolioProvider>
   )
 }
 
