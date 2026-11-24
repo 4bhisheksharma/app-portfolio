@@ -55,6 +55,17 @@ interface FirestoreSiteDoc {
   [key: string]: any
 }
 
+function normalizeAppIconImage(imagePath?: string, fallbackPath?: string): string | undefined {
+  const raw = imagePath || fallbackPath
+  if (!raw) return undefined
+  if (raw.startsWith('data:') || raw.startsWith('http://') || raw.startsWith('https://')) {
+    return raw
+  }
+  const filename = raw.split('/').pop()?.split('?')[0]
+  if (!filename) return raw
+  return `/apps/${filename}`
+}
+
 function resolveAppIcon(project: FirestoreProjectItem): AppIcon {
   const text = `${project.tag || ''} ${project.title || ''} ${project.categoryLabel || ''} ${project.category || ''}`.toLowerCase()
   if (text.includes('vpn') || text.includes('privacy') || text.includes('shield')) return 'shield'
@@ -123,7 +134,7 @@ function mergeProjectsWithApps(baseApps: App[], projects: FirestoreProjectItem[]
       description: matched.description || app.description,
       tag: matched.tag || app.tag,
       category: matched.categoryLabel || app.category,
-      iconImage: matched.image || app.iconImage,
+      iconImage: normalizeAppIconImage(matched.image, app.iconImage),
       status,
       closedTesting: typeof matched.closedTesting === 'boolean' ? matched.closedTesting : app.closedTesting,
       isNew: typeof matched.isNew === 'boolean' ? matched.isNew : app.isNew,
@@ -137,12 +148,21 @@ function mergeProjectsWithApps(baseApps: App[], projects: FirestoreProjectItem[]
     }
   })
 
-  // 2. Add any new mobile/app projects from Firestore that aren't in baseApps yet
+  // 2. Add any new mobile/app projects from Firestore that aren't in baseApps yet (only if they have a store link)
   const existingIds = new Set(updatedApps.map((a) => a.id.toLowerCase().trim()))
   const newAppProjects = projects.filter((p) => {
     if (!p.id || existingIds.has(p.id.toLowerCase().trim())) return false
     const cat = (p.category || '').toLowerCase()
-    return cat === 'mobile' || cat === 'games' || p.categoryLabel?.toLowerCase().includes('app')
+    const isMobileOrGame = cat === 'mobile' || cat === 'games' || p.categoryLabel?.toLowerCase().includes('app')
+    const hasStoreLink = p.links?.some(
+      (l) =>
+        l.href?.includes('play.google.com') ||
+        l.href?.includes('apps.apple.com') ||
+        l.href?.includes('chromewebstore.google.com') ||
+        l.label?.toLowerCase().includes('play store') ||
+        l.label?.toLowerCase().includes('app store')
+    )
+    return isMobileOrGame && Boolean(hasStoreLink)
   })
 
   const appendedApps: App[] = newAppProjects.map((p, idx) => {
@@ -189,7 +209,7 @@ function mergeProjectsWithApps(baseApps: App[], projects: FirestoreProjectItem[]
       description: p.description || '',
       icon: resolveAppIcon(p),
       status,
-      iconImage: p.image,
+      iconImage: normalizeAppIconImage(p.image),
       playStoreUrl: playStore,
       appStoreUrl: appStore,
       chromeStoreUrl: chromeStore,
@@ -225,7 +245,11 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       'apps',
       (docData) => {
         if (docData && Array.isArray(docData.items) && docData.items.length > 0) {
-          setApps(docData.items)
+          const sanitized = docData.items.map((item) => ({
+            ...item,
+            iconImage: normalizeAppIconImage(item.iconImage),
+          }))
+          setApps(sanitized)
           setIsLoading(false)
         }
       },

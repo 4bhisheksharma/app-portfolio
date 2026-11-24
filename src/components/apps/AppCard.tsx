@@ -24,6 +24,32 @@ const statusMeta: Record<AppStatus, { label: string; dot: string }> = {
 export function AppCard({ app, index, stagger, highlighted = false, onSelect }: AppCardProps) {
   const status = statusMeta[app.status]
   const [copied, setCopied] = useState(false)
+  const [imgError, setImgError] = useState(false)
+
+  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.currentTarget
+    const src = target.getAttribute('src') || target.src || ''
+
+    if (!target.dataset.triedApps && src.includes('/assets/images/')) {
+      target.dataset.triedApps = 'true'
+      const filename = src.split('/').pop()?.split('?')[0]
+      if (filename) {
+        target.src = `/apps/${filename}`
+        return
+      }
+    }
+
+    if (!target.dataset.triedAssets && src.includes('/apps/')) {
+      target.dataset.triedAssets = 'true'
+      const filename = src.split('/').pop()?.split('?')[0]
+      if (filename) {
+        target.src = `/assets/images/${filename}`
+        return
+      }
+    }
+
+    setImgError(true)
+  }
 
   const handleLinkClick = (e: React.MouseEvent) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
@@ -56,13 +82,14 @@ export function AppCard({ app, index, stagger, highlighted = false, onSelect }: 
           : 'hover:bg-white/[0.025]'
       }`}
     >
-      {app.iconImage ? (
+      {app.iconImage && !imgError ? (
         <img
           src={app.iconImage}
           alt={`${app.name} icon`}
           width={56}
           height={56}
           loading="lazy"
+          onError={handleImgError}
           className="h-14 w-14 shrink-0 rounded-[1.1rem] border border-white/[0.06] object-cover shadow-[0_8px_24px_-12px_rgba(0,0,0,0.8)] transition-transform duration-500 ease-out group-hover:-translate-y-0.5 group-hover:-rotate-3"
         />
       ) : (
